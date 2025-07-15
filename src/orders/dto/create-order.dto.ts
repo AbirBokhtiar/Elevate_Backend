@@ -2,23 +2,24 @@ import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-v
 import { OrderStatus } from '../enums/order-status.enum';
 import { ShippingEntity } from '../entities/shipping.entity';
 import { UserEntity } from 'src/users/entities/user.entity';
+import { ProductEntity } from '../entities/product.entity';
 
 export class CreateOrderDto {
     @IsOptional()
     @IsNumber()
     id?: number;
 
-    @IsString()
-    @IsNotEmpty()
-    productName: string;
+    // @IsString()
+    // @IsNotEmpty()
+    // productName: string;
 
     @IsNumber()
     @Min(1)
     @IsNotEmpty()
     quantity: number;
 
-    @IsNumber()
-    price: number;
+    // @IsNumber()
+    // price: number;
 
     @IsOptional()
     orderAt?: Date;
@@ -44,5 +45,9 @@ export class CreateOrderDto {
 
     @IsOptional()
     shippingAddress?: ShippingEntity;
+
+    // @IsNumber()
+    @IsNotEmpty()
+    product: ProductEntity;
 }
 

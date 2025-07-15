@@ -9,5 +9,6 @@ export default (): PostgresConnectionOptions => ({
   password: process.env.dbPassword,
   database: process.env.dbName,
   entities: [path.resolve(__dirname, '..') + '/**/*.entity{.ts,.js}'],
+  migrations: [path.resolve(__dirname, '..') + '/migrations/**/*{.ts,.js}'],
   synchronize: true,
 });

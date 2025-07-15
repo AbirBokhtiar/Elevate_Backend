@@ -2,20 +2,21 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, One
 import { OrderStatus } from "../enums/order-status.enum";
 import { UserEntity } from "src/users/entities/user.entity";
 import { ShippingEntity } from "./shipping.entity";
+import { ProductEntity } from "./product.entity";
 
 @Entity({ name:'orders'})
 export class OrderEntity {
     @PrimaryColumn()
     id: number;
 
-    @Column()
-    productName: string;
+    // @Column()
+    // productName: string;
 
     @Column()
     quantity: number;
 
-    @Column('decimal')
-    price: number;
+    // @Column('decimal')
+    // price: number;
 
     @CreateDateColumn()
     orderAt: Timestamp;
@@ -47,6 +48,10 @@ export class OrderEntity {
     @OneToOne(() => ShippingEntity, (ship) => ship.order, { cascade: true, onDelete: 'CASCADE' })
     @JoinColumn()
     shippingAddress: ShippingEntity;
+
+    @ManyToOne(() => ProductEntity, { eager: true })
+    @JoinColumn()
+    product: ProductEntity;
 
 }
 
