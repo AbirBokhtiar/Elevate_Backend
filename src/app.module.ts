@@ -7,10 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { MistralModule } from './mistral/mistral.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { NotificationsModule } from './notifications/notifications.module';
-import { SearchModule } from './search/search.module';
 import { McpModule, McpTransportType } from '@rekog/mcp-nest';
 import { WooTool } from './woo/woo.tool';
 import { GeminiTool } from './gemini/gemini.tool';
@@ -36,10 +34,8 @@ import { PaymentsModule } from './payments/payments.module';
     OrdersModule,
     UsersModule,
     AuthModule,
-    MistralModule,
     InvoiceModule,
     NotificationsModule,
-    SearchModule,
     ChatModule,
     WooModule,
     GeminiModule,
