@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
 import { WooCommerceService } from './woocommerce.service';
 import { Response } from 'express';
 
@@ -105,5 +105,47 @@ export class WooCommerceController {
       return res.status(500).json({ message: 'Failed to fetch products' });
     }
   }
+
+  @Get('categories')
+  async getCategories(@Res() res: Response) {
+    try {
+      const url = `${this.wooService['baseUrl']}/products/categories`;
+      const request_data = { url, method: 'GET' };
+      const headers = this.wooService['oauth'].toHeader(
+        this.wooService['oauth'].authorize(request_data),
+      );
+
+      const axios = (await import('axios')).default;
+      const result = await axios.get(url, { headers: {...headers} });
+      return res.status(200).json(result.data);
+    } catch (err) {
+      return res.status(500).json({ message: 'Failed to fetch categories' });
+    }
+  }
+
+
+  @Post('reviews/:productId')
+  async submitReview(@Param('productId') productId: number, @Body() body: any, @Res() res: Response) {
+    try {
+      const url = `${this.wooService['baseUrl']}/products/${productId}/reviews`;
+      const request_data = { url, method: 'POST' };
+      const headers = {
+        ...this.wooService['oauth'].toHeader(this.wooService['oauth'].authorize(request_data)),
+        'Content-Type': 'application/json',
+      };
+
+      const axios = (await import('axios')).default;
+      const response = await axios.post(url, {
+        product_id: productId,
+        ...body,
+      }, { headers });
+
+      return res.status(201).json(response.data);
+    } catch (err) {
+      return res.status(500).json({ message: 'Failed to submit review.' });
+    }
+  }
+
+
 
 }
