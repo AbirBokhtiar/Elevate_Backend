@@ -6,7 +6,7 @@ import { set } from 'zod';
 
 @Injectable()
 export class WooCommerceService {
-  private readonly baseUrl = 'http://localhost:8080/elevate/wp-json/wc/v3';
+  private readonly baseUrl = 'https://elevateyourway.infinityfreeapp.com/wp-json/wc/v3';
 
   private consumerKey = process.env.WC_KEY as string;
   private consumerSecret = process.env.WC_SECRET as string;
