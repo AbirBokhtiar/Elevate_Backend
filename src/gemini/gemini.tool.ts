@@ -296,7 +296,7 @@ Respond with only one word: refund, product_information, order_creation, regular
     if (!order) return "Sorry, I couldn't find that order.";
 
     const lineItems = Array.isArray(order.line_items) ? order.line_items : [];
-    console.log('Line items:', order.line_items);
+    // console.log('Line items:', order.line_items);
 
     const productLines = lineItems.map((item: any) => {
       return `- ${item.name} (৳${item.total}, Qty: ${item.quantity})`;
@@ -317,7 +317,7 @@ Respond with only one word: refund, product_information, order_creation, regular
       `**Items:**\n${productLines || 'No items found in this order.'}`
     );
 
-    console.log('Final formatted reply:', result); 
+    // console.log('Final formatted reply:', result); 
     return result;
   }
 
@@ -335,13 +335,13 @@ Respond with only one word: refund, product_information, order_creation, regular
     if (orderIdMatch) {
       const orderId = orderIdMatch[1];
       try {
-        console.log('Fetching order', orderId);
+        // console.log('Fetching order', orderId);
         // const order = await this.wooCommerceService.getOrderById(Number(orderId));
         const order = await Promise.race([
           this.wooCommerceService.getOrderById(Number(orderId)),
           new Promise((_, reject) => setTimeout(() => reject(new Error('WooCommerce timeout')), 8000))
         ]);
-        console.log('Order fetched:', order);
+        // console.log('Order fetched:', order);
         if (!order.products || !Array.isArray(order.products)) {
           order.products = [];
         }
@@ -653,7 +653,7 @@ Respond as a helpful AI store assistant. Explain these products politely and cle
       return { suggestions: [] };
     }
 
-    console.log('Full Gemini response:', JSON.stringify(aiResponse, null, 2));
+    // console.log('Full Gemini response:', JSON.stringify(aiResponse, null, 2));
 
 
     // Extract text from GenerateContentResult
@@ -673,7 +673,7 @@ Respond as a helpful AI store assistant. Explain these products politely and cle
     } catch (err) {
       console.error('Error extracting text from Gemini response:', err);
     }
-    console.log('Gemini raw response:', aiText);
+    // console.log('Gemini raw response:', aiText);
 
 
     let suggestions: Product[] = [];
